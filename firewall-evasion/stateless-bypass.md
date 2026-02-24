@@ -41,7 +41,7 @@ nmap -sS -v -Pn -g 53 192.168.1.5
 Once the bypass was confirmed via Nmap, i utilized Netcat to establish a manual connection using the same source port logic:
 
 ```bash
-nc -nv -p 443 192.168.1.5
+nc -nv -p 53 192.168.1.5
 ```
 
 - **Success:** A connection was established, confirming that the firewall was only inspecting the source/destination pair without tracking the state of the connection.
