@@ -1,0 +1,20 @@
+# Security & Credentials
+.env
+*.pem
+*.key
+secrets/
+
+*.log
+*.pcap
+*.pcapng
+/scans/results/*.xml
+/scans/results/*.gnmap
+
+__pycache__/
+node_modules/
+dist/
+build/
+.DS_Store
+
+targets.txt
+evidence/private/
