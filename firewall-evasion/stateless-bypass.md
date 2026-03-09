@@ -5,9 +5,9 @@ Category: Network Security / Firewall Evasion
 
 # 1. Executive Summary
 
-This report documents a successful identification and bypass of a **Stateless Firewall** protecting an Apache web server. By identifying "implicitly trusted" ports, such as DNS (53) and HTTPS (443) and recycling them as source ports for reconnaissance and connection, i was able to access services on restricted destination ports, specifically 8080.
+This report documents a successful identification and bypass of a **Stateless Firewall** protecting an Apache web server. By identifying "implicitly trusted" ports, such as DNS (53) and HTTPS (443) and recycling them as source ports for reconnaissance and connection, I was able to access services on restricted destination ports, specifically 8080.
 
-# 2. Enviroment & Targets
+# 2. Environment & Targets
 - Target IP: 192.168.1.5
 - Internal Services: Apache HTTP Server
 - Security Control: Stateless Packet Filtering
@@ -27,7 +27,7 @@ nmap -v -sS -Pn 192.168.1.5
 
 **Phase 2: Source Port Manipulation**
 
-Stateless firewalls often allow incoming traffic if the source prot belongs to a known service (like DNS at 53 and HTTPS at 443) to ensure return traffic reaches the user. I tested different source ports (**-g** flag) to see if the filter would allow traffic.
+Stateless firewalls often allow incoming traffic if the source port belongs to a known service (like DNS at 53 and HTTPS at 443) to ensure return traffic reaches the user. I tested different source ports (**-g** flag) to see if the filter would allow traffic.
 
 ```bash
 #Testing with Source port 53 (DNS)
@@ -41,7 +41,7 @@ nmap -sS -v -Pn -g 53 192.168.1.5
 Once the bypass was confirmed via Nmap, i utilized Netcat to establish a manual connection using the same source port logic:
 
 ```bash
-nc -nv -p 53 192.168.1.5
+nc -nv -p 53 192.168.1.5 8080
 ```
 
 - **Success:** A connection was established, confirming that the firewall was only inspecting the source/destination pair without tracking the state of the connection.
